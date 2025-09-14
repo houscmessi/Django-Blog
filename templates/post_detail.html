@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ post.title }} - My Blog{% endblock %}
+{% block meta_description %}{{ post.excerpt|default:post.title }}{% endblock %}
+{% block og_title %}{{ post.title }}{% endblock %}
+{% block og_description %}{{ post.excerpt|default:post.title }}{% endblock %}
+{% block og_image %}{% if post.cover %}{{ post.cover.url }}{% endif %}{% endblock %}
+{% block content %}
+<article class="prose prose-invert max-w-none">
+  <h1 class="mb-2">{{ post.title }}</h1>
+  <p class="text-sm opacity-70 mb-4">
+    by {{ post.author.username }} · {{ post.created|date:"Y-m-d H:i" }} · {{ post.reading_minutes }} 分钟阅读 · {{ post.views }} 次浏览
+  </p>
+  {% if post.cover %}
+    <img class="rounded-xl mb-6" src="{{ post.cover.url }}" alt="{{ post.title }}" />
+  {% endif %}
+  {{ post.body_html|safe }}
+</article>
+{% endblock %}

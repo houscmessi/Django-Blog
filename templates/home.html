@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}首页 - My Blog{% endblock %}
+{% block content %}
+
+<form method="get" class="mb-6 flex gap-2">
+  <input class="input input-bordered w-full" name="q" value="{{ q|default:'' }}" placeholder="搜索标题或正文..." />
+  <button class="btn btn-primary">搜索</button>
+</form>
+
+{% if posts %}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  {% for p in posts %}
+    <div class="rounded-xl shadow-lg p-5 bg-base-200 hover:shadow-xl transition">
+      <a href="{% url 'post_detail' p.slug %}">
+        <h2 class="text-xl font-bold mb-2">{{ p.title }}</h2>
+      </a>
+      <p class="text-sm opacity-70 mb-2">
+        by {{ p.author.username }} · {{ p.created|date:"Y-m-d" }} · {{ p.reading_minutes }} 分钟阅读 · {{ p.views }} 次浏览
+      </p>
+      {% if p.cover %}
+        <img class="rounded-lg mb-3" src="{{ p.cover.url }}" alt="{{ p.title }}" />
+      {% endif %}
+      <p class="line-clamp-3">{{ p.excerpt }}</p>
+      <a href="{% url 'post_detail' p.slug %}" class="btn btn-sm btn-primary mt-3">阅读全文</a>
+    </div>
+  {% endfor %}
+</div>
+
+<div class="join mt-8">
+  {% if posts.has_previous %}
+    <a class="join-item btn" href="?q={{ q }}&page={{ posts.previous_page_number }}">上一页</a>
+  {% endif %}
+  <button class="join-item btn btn-ghost">第 {{ posts.number }} / {{ posts.paginator.num_pages }} 页</button>
+  {% if posts.has_next %}
+    <a class="join-item btn" href="?q={{ q }}&page={{ posts.next_page_number }}">下一页</a>
+  {% endif %}
+</div>
+
+{% else %}
+  <p>暂无文章</p>
+{% endif %}
+
+{% endblock %}

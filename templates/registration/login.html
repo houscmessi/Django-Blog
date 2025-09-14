@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block content %}<h2>登录</h2><form method='post'>{% csrf_token %}{{ form.as_p }}<button class='btn'>登录</button></form><p>没有账号？<a href='/accounts/signup/'>去注册</a></p>{% endblock %}

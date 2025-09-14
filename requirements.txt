@@ -1,0 +1,7 @@
+Django>=5.2.6
+markdown
+bleach
+django-taggit
+djangorestframework
+whitenoise
+gunicorn

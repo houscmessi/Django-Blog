@@ -1,0 +1,58 @@
+{% load static %}
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  {# —— Title：优先用子模板的 block；否则用 PAGE_TITLE 变量；再否则用默认 —— #}
+  <title>
+    {% block title %}{{ PAGE_TITLE|default:"My Blog" }}{% endblock %}
+  </title>
+
+  <meta name="description"
+        content="{% block meta_description %}{{ PAGE_DESC|default:'A clean, minimal Django blog' }}{% endblock %}">
+
+  {# —— OG：与 Title 同步的“默认值”，但允许子模板单独覆盖 —— #}
+  <meta property="og:title"
+        content="{% block og_title %}{{ PAGE_TITLE|default:'My Blog' }}{% endblock %}">
+  <meta property="og:description"
+        content="{% block og_description %}{{ PAGE_DESC|default:'A clean, minimal Django blog' }}{% endblock %}">
+  <meta property="og:type" content="website">
+  <meta property="og:image"
+        <meta property="og:image" content="{% block og_image %}{% static 'images/default-og.png' %}{% endblock %}">
+  <link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+  <!-- Tailwind + DaisyUI -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" />
+
+  <!-- favicon -->
+  {% load static %}
+  <link rel="icon" href="{% static 'favicon.ico' %}">
+</head>
+<body class="bg-base-100 text-base-content">
+  <header class="border-b border-base-300">
+    <div class="container px-4 py-4 flex items-center justify-between">
+      <a class="text-3xl font-extrabold" href="/">My Blog</a>
+      <nav class="space-x-4">
+        <a class="link link-primary" href="/admin/">后台</a>
+        {% if request.user.is_authenticated %}
+          <span class="opacity-70">Hi, {{ request.user.username }}</span>
+          <a class="link" href="/admin/logout/">退出</a>
+        {% else %}
+          <a class="link" href="/admin/login/">登录</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main class="container px-4 py-8">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="py-10 text-center opacity-60">
+    © Blog Demo
+  </footer>
+</body>
+</html>

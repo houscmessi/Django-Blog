@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block content %}<h2>标签：#{{ tag.name }}</h2><ul class='list'>{% for p in posts %}<li><a href='{% url 'post_detail' p.slug %}'>{{ p.title }}</a></li>{% empty %}<li>该标签暂无文章</li>{% endfor %}</ul>{% endblock %}

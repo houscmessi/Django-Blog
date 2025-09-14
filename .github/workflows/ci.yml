@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install black flake8
+
+      - name: Lint
+        run: |
+          black --check .
+          flake8 .
+
+      - name: Django checks & migrate
+        run: |
+          python manage.py check
+          python manage.py migrate --noinput
+          # 简单 smoke：创建一个 superuser（若已存在忽略）
+          python - <<'PY'
+from django.contrib.auth import get_user_model
+U = get_user_model()
+if not U.objects.filter(username="ci").exists():
+    U.objects.create_superuser("ci","ci@example.com","ci12345678")
+print("ok")
+PY
