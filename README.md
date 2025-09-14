@@ -1,6 +1,6 @@
 # Django Blog 
 [![CI](https://github.com/<houscmessi>/<Django-Blog>/actions/workflows/ci.yml/badge.svg)](https://github.com/<houscmessi>/<Django-Blog>/actions)
-[![Render Deploy](https://img.shields.io/badge/Render-Live%20Demo-blue?logo=render)](https://<你的render子域名>.onrender.com)
+[![Render Deploy](https://img.shields.io/badge/Render-Live%20Demo-blue?logo=render)](https://django-blog-xyz.onrender.com)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 
 > 一个 **干净、专业、可在线访问** 的 Django 博客模板：Markdown 渲染、代码高亮、标签、搜索、分页、RSS、Sitemap、只读 API、Docker、CI 与免费托管部署。
