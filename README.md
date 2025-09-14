@@ -5,7 +5,7 @@
 
 > 一个 **干净、专业、可在线访问** 的 Django 博客模板：Markdown 渲染、代码高亮、标签、搜索、分页、RSS、Sitemap、只读 API、Docker、CI 与免费托管部署。
 
-[English version below ⬇️](#english-version)
+
 ---
 
 ## ✨ 项目亮点
@@ -64,38 +64,6 @@ gunicorn mysite.wsgi:application -b 0.0.0.0:8000
 ```bash
 Lint（Black/Flake8）+ Django System Check + 迁移 Smoke
 ```
-
-
-English Version
-
-## ✨ Highlights
--Markdown rendering (tables/code/TOC) + highlight.js
--Tags, search, pagination, reading time, view counter
--Cover image upload, card-style index, dark UI (Tailwind + DaisyUI)
--Sitemap (/sitemap.xml) and RSS (/feed/)
--Read-only API (DRF): /api/posts/
--Docker, GitHub Actions CI
--Free hosting on Render (Docker & non-Docker)
----
-## 🚀 Quick Start
-```bash
-pip install -r requirements.txt
-python manage.py makemigrations && python manage.py migrate
-python manage.py createsuperuser
-python manage.py init_demo
-python manage.py runserver
-```
----
-## ☁️ Deploy on Render
-```bash
-#Non-Docker:
-Build: pip install -r requirements.txt && python manage.py collectstatic --noinput
-
-Start: gunicorn mysite.wsgi:application -b 0.0.0.0:8000
-
-#Docker: use the provided Dockerfile.
-```
-
 ---
 
 ## 9) 迁移 & 启动（一次性执行）
